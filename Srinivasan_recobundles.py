@@ -135,7 +135,7 @@ if len(labels_l) and len(labels_r):
 else:
     import sys
     print("Recobundles did not work")
-    print('Len(labels_r) = %d, Len(labels_l) = $d' % len(labels_l), len(labels_r))
+    print('Len(labels_r) = %1.1f, Len(labels_l) = %1.1f' % (len(labels_r), len(labels_l)))
     sys.exit()
     
 sft_r = StatefulTractogram(extracted_bundle_r, img, Space.RASMM)
