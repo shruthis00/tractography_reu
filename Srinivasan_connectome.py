@@ -93,58 +93,76 @@ roi_right = np.concatenate([roi[:,8:15], roi[:,50:83]], axis = 1)
 #roi = [1032, 1033]
 roi_mask = np.zeros(shape = label.shape, dtype = np.bool_)
 
-for i in np.arange(data.shape[0]):
-    for j in np.arange(data.shape[1]):
-        for k in np.arange(data.shape[2]):
-            if labels[i][j][k] in roi_left:
-                roi_mask[i][j][k] = True
-              
-            else:
-                roi_mask[i][j][k] = False
-                
-print('ROI mask created')
-
-affine = np.eye(4)
-seeds = utils.seeds_from_mask(tensor_fit.fa, affine, density=1)
-
-from dipy.tracking.stopping_criterion import ThresholdStoppingCriterion, BinaryStoppingCriterion
-FA_threshold = 0.05
-stopping_criterion=ThresholdStoppingCriterion(mask, FA_threshold)
-#stopping_criterion=BinaryStoppingCriterion(wm == 1)
-
-streamline_generator = LocalTracking(csapeaks, stopping_criterion, seeds,
-                                     affine=affine, step_size=0.5)
-streamlines = Streamlines(streamline_generator)
+def filter_streamlines (roi_real, fa_mask, labels, seed_input):
+    
+    roi_mask = np.zeros(shape = labels.shape, dtype=np.bool_)
+    
+    for i in np.arange(data.shape[0]):
+        for j in np.arange(data.shape[1]):
+            for k in np.arange(data.shape[2]):
+                if labels[i][j][k] in roi_real:
+                    roi_mask[i][j][k] = True
+                  
+                else:
+                    roi_mask[i][j][k] = False
+    print('ROI mask created')
+    """              
+    if seed_input.shape != label.shape:
         
-roi_streamlines = utils.target(streamlines, affine, roi_mask)
-roi_streamlines = Streamlines(roi_streamlines)
+        seed_mask = np.zeros(shape = labels.shape, dtype=np.bool_)
+        for i in np.arange(data.shape[0]):
+            for j in np.arange(data.shape[1]):
+                for k in np.arange(data.shape[2]):
+                    if labels[i][j][k] in seed_mask:
+                        seed_mask[i][j][k] = True
+                      
+                    else:
+                        seed_mask[i][j][k] = False
+    else:
+        seed_mask = seed_input
+        """
+                        
+    affine = np.eye(4)
+    seeds = utils.seeds_from_mask(seed_input, affine, density=1)
 
-from dipy.viz import window, actor, colormap as cmap
-
-# Enables/disables interactive visualization
-interactive = True
-
-# Make display objects
-color = cmap.line_colors(roi_streamlines)
-roi_streamlines_actor = actor.line(roi_streamlines,
-                                  cmap.line_colors(roi_streamlines))
-ROI_actor = actor.contour_from_roi(roi_mask, color=(1., 1., 0.), opacity=0.1)
-
-# Add display objects to canvas
-r = window.Scene()
-
-r.add(roi_streamlines_actor)
-r.add(ROI_actor)
-
-# Save figures
-#window.record(r, n_frames=1, out_path='corpuscallosum_axial.png',
-           #   size=(800, 800))
-if interactive:
-    window.show(r)
-r.set_camera(position=[-1, 0, 0], focal_point=[0, 0, 0], view_up=[0, 0, 1])
-#window.record(r, n_frames=1, out_path='corpuscallosum_sagittal.png',
- #             size=(800, 800))
-
+    from dipy.tracking.stopping_criterion import ThresholdStoppingCriterion
+    FA_threshold = 0.05
+    stopping_criterion=ThresholdStoppingCriterion(fa_mask, FA_threshold)
+    #stopping_criterion=BinaryStoppingCriterion(wm == 1)
+    
+    streamline_generator = LocalTracking(csapeaks, stopping_criterion, seeds,
+                                         affine=affine, step_size=0.5)
+    streamlines = Streamlines(streamline_generator)
+            
+    roi_streamlines = utils.target(streamlines, affine, roi_mask)
+    roi_streamlines = Streamlines(roi_streamlines)
+    
+    from dipy.viz import window, actor, colormap as cmap
+    
+    # Enables/disables interactive visualization
+    interactive = True
+    
+    # Make display objects
+    color = cmap.line_colors(roi_streamlines)
+    roi_streamlines_actor = actor.line(roi_streamlines, color)
+    ROI_actor = actor.contour_from_roi(roi_mask, color=(1., 1., 0.), opacity=0.1)
+    
+    r = window.Scene()
+    
+    r.add(roi_streamlines_actor)
+    r.add(ROI_actor)
+    
+    # Save figures
+    #window.record(r, n_frames=1, out_path='corpuscallosum_axial.png',
+               #   size=(800, 800))
+    if interactive:
+        window.show(r)
+    r.set_camera(position=[-1, 0, 0], focal_point=[0, 0, 0], view_up=[0, 0, 1])
+    #window.record(r, n_frames=1, out_path='corpuscallosum_sagittal.png',
+     #             size=(800, 800))
+     
+    return roi_streamlines
+    return roi_real
 
 sft = StatefulTractogram(roi_streamlines, img, Space.RASMM)
 save_tractogram(sft, 'whole_brain' + str(subject) + '.trk', bbox_valid_check= False)
