@@ -129,6 +129,20 @@ avg_left = np.average(length_l)
 
 print('Length of streamlines in both bundles computed')
 
+import matplotlib.pyplot as plt
+
+def length_hist (length_list, color):
+    
+    fig_hist, ax = plt.subplots(1)
+    ax.hist(length_list, color=color)
+    ax.set_xlabel('Length')
+    ax.set_ylabel('Count')
+    plt.show()
+    #plt.savefig(' Length Distribution.png')
+
+r_hist = length_hist(length_r, (.44, .75, .8))
+l_list = length_hist(length_l, (.93, .66, .3))
+
 l_r = 0
 l_c = 0
 
