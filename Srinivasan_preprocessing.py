@@ -24,12 +24,24 @@ dname2 = join(home, '.spyder-py3')
 
 #Loading sample data
 fdwi = join(dname, 'bia6_00490_003.nii')
-fbvec = join(dname, str(subject) + '_bvecs.txt')
-fbval = join(dname, str(subject) + '_bvals.txt')
+
+flabel = join(dname, str(subject) + '_IITmean_RPI_labels.nii')
 
 data, affine, img, vox_size = load_nifti(fdwi, return_img = True, return_voxsize=True)
+label = load_nifti_data(flabel, as_ndarray = True)
 data = np.squeeze(data[:,:,:])
-print(data.shape)
+
+def slicer(data, affine, save):
+    
+    slice_vol = data.shape[3] // 2
+    
+    nifti_new = data[:,:,:,slice_vol]
+    print(nifti_new.shape)
+    
+    if save:
+        save_nifti(dname + "_3D_vol" + str(slice_vol), nifti_new, affine)
+    
+    return nifti_new
 
 def resample_nifti(data, affine, img, vox_size, new_vox_size, new_fname):
     
@@ -55,28 +67,31 @@ def resample_nifti(data, affine, img, vox_size, new_vox_size, new_fname):
         
     return data2
 
+fname_label = str(subject) + '_label_resampled.nii'
+fname_dwi = str(subject) + '_resample.nii'
 data = resample_nifti(data, affine, img, vox_size, (2.,2.,2.), new_fname = None)
 
-#Now median otsu
-b0_mask, mask = median_otsu(data, median_radius=4, numpass=2)
-b0_mask_crop, mask_crop = median_otsu(data, median_radius=4, numpass=4, autocrop=True)
+def brainmask(data, affine, save):
+    #Now median otsu
+    b0_mask, mask = median_otsu(data, median_radius=4, numpass=2)
+    b0_mask_crop, mask_crop = median_otsu(data, median_radius=4, numpass=4, autocrop=True)
 
-save_nifti('bia_S00490_003_mask_resample.nii.gz', b0_mask.astype(np.float32), affine)
-#save_nifti(fname + '_mask.nii.gz', b0_mask.astype(np.float32), affine)
+    save_nifti('bia_S00490_003_mask_resample.nii.gz', b0_mask.astype(np.float32), affine)
+    #save_nifti(fname + '_mask.nii.gz', b0_mask.astype(np.float32), affine)
 
-sli = data.shape[2] // 2
+    sli = data.shape[2] // 2
 
-plt.figure('Median Otsu stuff')
-plt.subplot(1, 2, 1).set_axis_off()
-plt.imshow(histeq(data[:, :, sli].astype('float')).T,
-           cmap='gray', origin='lower')
+    plt.figure('Median Otsu stuff')
+    plt.subplot(1, 2, 1).set_axis_off()
+    plt.imshow(histeq(data[:, :, sli].astype('float')).T,
+               cmap='gray', origin='lower')
 
-plt.subplot(1, 2, 2).set_axis_off()
-plt.imshow(histeq(b0_mask[:, :, sli].astype('float')).T,
-           cmap='gray', origin='lower')
+    plt.subplot(1, 2, 2).set_axis_off()
+    plt.imshow(histeq(b0_mask[:, :, sli].astype('float')).T,
+               cmap='gray', origin='lower')
 
-#plt.savefig('median_otsu.png')"""
-mask = mask.astype('uint8')
+    #plt.savefig('median_otsu.png')"""
+    mask = mask.astype('uint8')
 
-print(b0_mask_crop.shape)
-save_nifti("S00490_t1", b0_mask, affine)
+    print(b0_mask_crop.shape)
+    save_nifti("S00490_t1", b0_mask, affine)
