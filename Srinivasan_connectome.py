@@ -22,7 +22,7 @@ from dipy.segment.mask import median_otsu
 from os.path import expanduser, join
 home = expanduser('~')
 
-subject = 'S00393'
+subject = 'subj'
 dname = join(home, '.dipy', 'sample_files', subject)
 
 flabel = join(dname, str(subject) + 'wm_resample.nii')
@@ -106,21 +106,6 @@ def filter_streamlines (roi_real, fa_mask, labels, seed_input):
                 else:
                     roi_mask[i][j][k] = False
     print('ROI mask created')
-    """              
-    if seed_input.shape != label.shape:
-        
-        seed_mask = np.zeros(shape = labels.shape, dtype=np.bool_)
-        for i in np.arange(data.shape[0]):
-            for j in np.arange(data.shape[1]):
-                for k in np.arange(data.shape[2]):
-                    if labels[i][j][k] in seed_mask:
-                        seed_mask[i][j][k] = True
-                      
-                    else:
-                        seed_mask[i][j][k] = False
-    else:
-        seed_mask = seed_input
-        """
                         
     affine = np.eye(4)
     seeds = utils.seeds_from_mask(seed_input, affine, density=1)
