@@ -18,14 +18,14 @@ from dipy.io.vtk import transform_streamlines
 from os.path import expanduser, join
 home = expanduser('~')
 
-subject = 'S00393'
+subject = '1234'
 dname = join(home, '.dipy', 'sample_files', subject)
 dname2 = join(home, '.dipy', 'bundle_atlas_hcp842', 'Atlas_80_Bundles')
 
-fref = join(dname, 'S00393_Reg_LPCA_nii3D.nii')
+fref = join(dname, '1234.nii')
 ref, affine, img = load_nifti(fref, return_img = True)
-ftarget_tract = join(dname, '00393_stepsize_2_all_wholebrain_pruned_100.trk')
-flabels = join(dname, 'S00393_label_resample.nii')
+ftarget_tract = join(dname, 'whole_brain.trk')
+flabels = join(dname, 'label_resample.nii')
 fatlas = join(dname2, 'whole_brain', 'whole_brain_MNI.trk')
 
 sft_atlas = load_trk(fatlas, "same", bbox_valid_check=False, )
