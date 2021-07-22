@@ -14,9 +14,9 @@ from os.path import join, expanduser
 home = expanduser('~')
 dname = join(home, '.dipy', 'sample_files', 'S00393')
 
-fdwi = join(dname, 'S00393_Reg_LPCA_nii3D.nii')
-fbval = join(dname, 'S00393_bvals.txt')
-fbvec = join(dname, 'S00393_bvecs.txt')
+fdwi = join(dname, 'Full_DWI_subj.nii')
+fbval = join(dname, 'bvals.txt')
+fbvec = join(dname, 'bvecs.txt')
 
 data, affine, img= load_nifti(fdwi, return_img=True)
 tissue_data = np.asanyarray(img.dataobj)
@@ -79,4 +79,4 @@ imgplot = plt.imshow(img_cor, cmap="gray")
 a.axis('off')
 a.set_title('White Matter')
 
-save_nifti('White_matter_mask_S00393', wm, affine)
+save_nifti('White_matter_mask_subj', wm, affine)
