@@ -28,13 +28,12 @@ from dipy.io.stateful_tractogram import Space, StatefulTractogram
 
 from os.path import expanduser, join
 home = expanduser('~')
-subjects = ['S00393', 'S00490', 'S00613','S00680','S00699','S00795','S01952']
 
 df_tot = pd.DataFrame(data = None, columns = ['Subject', 'Number of Streamlines',
                       'Mean FA', 'Mean Length of Streamlines'])
 
 ba = []
-subjects = ['S00613']
+subject = [1, 2, 3] #Subject name here if intending to iterate through a for loop
 for i, subject in enumerate(subjects):
     
     print('Subject is ' + subject)
