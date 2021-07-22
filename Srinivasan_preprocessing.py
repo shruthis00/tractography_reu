@@ -18,12 +18,12 @@ from dipy.align.reslice import reslice
 from os.path import expanduser
 home = expanduser('~')
 
-subject = 'S00490'
+subject = '1234'
 dname = join(home, '.dipy', 'sample_files', str(subject))
 dname2 = join(home, '.spyder-py3')
 
 #Loading sample data
-fdwi = join(dname, 'bia6_00490_003.nii')
+fdwi = join(dname, '1234.nii') #insert path name here
 
 flabel = join(dname, str(subject) + '_IITmean_RPI_labels.nii')
 
@@ -76,7 +76,7 @@ def brainmask(data, affine, save):
     b0_mask, mask = median_otsu(data, median_radius=4, numpass=2)
     b0_mask_crop, mask_crop = median_otsu(data, median_radius=4, numpass=4, autocrop=True)
 
-    save_nifti('bia_S00490_003_mask_resample.nii.gz', b0_mask.astype(np.float32), affine)
+    save_nifti('1234_resample.nii.gz', b0_mask.astype(np.float32), affine)
     #save_nifti(fname + '_mask.nii.gz', b0_mask.astype(np.float32), affine)
 
     sli = data.shape[2] // 2
@@ -94,4 +94,3 @@ def brainmask(data, affine, save):
     mask = mask.astype('uint8')
 
     print(b0_mask_crop.shape)
-    save_nifti("S00490_t1", b0_mask, affine)
