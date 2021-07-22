@@ -17,7 +17,7 @@ from dipy.tracking.streamline import cluster_confidence, Streamlines
 
 from os.path import expanduser, join
 home = expanduser('~')
-subjects = ['S00393', 'S00490', 'S00613','S00680','S00699','S00795','S01952']
+subjects = ['1', '2', '3', '4'] # Insert subjects here
 
 for i, subject in enumerate(subjects):
     
