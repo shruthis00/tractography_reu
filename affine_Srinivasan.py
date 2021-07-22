@@ -24,8 +24,8 @@ home = expanduser('~')
 
 dname = join(home, '.dipy', 'sample_files')
 
-fdwi1 = join(dname, 'S00393', 'S00393_Reg_LPCA_nii3D.nii')
-fdwi2 = join(dname, 'S00490', 'S00490_3D_vol8.nii')
+fdwi1 = join(dname, 'subj', 'subj_static_file.nii')
+fdwi2 = join(dname, 'subj_moving', 'subj_moving_file.nii')
 
 s_data, s_affine, s_img = load_nifti(fdwi1, return_img = True)
 m_data, m_affine, m_img = load_nifti(fdwi2, return_img = True)
