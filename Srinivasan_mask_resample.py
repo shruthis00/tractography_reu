@@ -11,8 +11,8 @@ from os.path import join, expanduser
 
 home = expanduser('~')
 
-dname = join(home, '.dipy', 'sample_files', 'S00393')
-f_nii = join(dname, 'S00393wm.nii')
+dname = join(home, '.dipy', 'sample_files', 'subj')
+f_nii = join(dname, 'subj_wm.nii')
 
 data, affine, vox_size = load_nifti(f_nii, return_voxsize=True)
 print(data.shape)
@@ -29,6 +29,6 @@ data2_np = np.array(data2)
 data2_np = (data2_np >= 0.20)
 data2_np = data2_np.astype('uint8')
 
-save_nifti('S00393wm_resample', data2_np, affine)
+save_nifti('subj_wm_resample', data2_np, affine)
 
 
