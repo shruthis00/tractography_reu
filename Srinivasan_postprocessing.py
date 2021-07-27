@@ -235,11 +235,35 @@ for i, subject in enumerate(subjects):
     r_hist = length_hist(length_r, (.44, .75, .8))
     l_list = length_hist(length_l, (.93, .66, .3))
     
+    
+    def length_visual (bundle_l, bundle_r, length_list_l, length_list_r):
+        #length_list_l_cmap = actor.colormap_lookup_table(scale_)
+        
+        length_cmap = actor.colormap_lookup_table(scale_range = (3, 100))
+        
+        scene = window.Scene()
+        scene.add(actor.line(bundle_l, length_list_l, lookup_colormap=(length_cmap)))
+        scene.add(actor.line(bundle_r, length_list_r, lookup_colormap=(length_cmap)))
+
+        scene.set_camera(focal_point=(51, 51, 20.1),
+                         position=(46, 277, -200), view_up=(0.1, -.8, -.07))
+        
+        cbar = actor.scalar_bar(length_cmap)
+        scene.add(cbar) 
+        
+        if interactive:
+            window.show(scene)
+        
+    #r_hist = length_hist(length_r, (.44, .75, .8))
+    #l_list = length_hist(length_l, (.93, .66, .3))
+    
+    length_visual(hipp_to_amyg_l, hipp_to_amyg_r, np.asanyarray(length_l), np.array(length_r))
+    
     print('Length of streamlines in both bundles computed')
     
     df_tot = df_tot.append((pd.Series(df_l, index = df_tot.columns)), ignore_index = True)
     df_tot = df_tot.append((pd.Series(df_r, index = df_tot.columns)), ignore_index = True)
-    
+   
 ba = pd.Series(ba, index = subjects)
 
 #df_tot.to_csv(r'C:\Users\shrut\.dipy\sample_files\df_tot.csv', columns = df_tot.columns)
