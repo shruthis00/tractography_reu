@@ -79,4 +79,7 @@ imgplot = plt.imshow(img_cor, cmap="gray")
 a.axis('off')
 a.set_title('White Matter')
 
-save_nifti('White_matter_mask_subj', wm, affine)
+wm = (wm >= 0.20)
+wm = wm.astype(int)
+
+save_nifti(str(subject) + '_wm', wm, affine)
