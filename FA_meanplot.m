@@ -8,8 +8,7 @@ clear
 clc
 close all
 
-subjects = ["S00393", "S00490", "S00613", "S00680", "S00699", "S00795", "S01952"];
-%subjects = ["S00393"];
+subjects = ['subjects']
 for i = 1:length(subjects)
     pathl = (fullfile(subjects(i) + '_l.csv'));
     pathr = (fullfile(subjects(i) + '_r.csv'));
@@ -24,7 +23,7 @@ for i = 1:length(subjects)
     
     [rows, cols] = size(l_data);
 
-    %x?± z* ?/?n
+    %x?Â± z* ?/?n
     % LEFT SIDE
     mean_l = fa_data_l(length(fa_data_l),:);
     lsigma = zeros(1, cols);
