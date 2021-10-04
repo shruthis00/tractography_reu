@@ -22,9 +22,9 @@ plt.close('all');
 
 from os.path import expanduser, join
 home = expanduser('~')
-subjects = ['1', '2', '3', '4']
+subjects = ['S00393', 'S00490', 'S00613', 'S00680', 'S00699', 'S00795', 'S01952']
 
-subject = '1'
+subject = 'S00393'
 
 print('Subject is ' + subject)
 
