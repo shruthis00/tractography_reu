@@ -4,18 +4,19 @@ Created on Tue Jul  6 18:12:26 2021
 
 @author: shrut
 """
+from fury import actor, window
 
 from dipy.io.image import load_nifti
 import numpy as np
 from dipy.segment.bundles import RecoBundles
 from dipy.align.streamlinear import whole_brain_slr
-from fury import actor, window
 from dipy.io.stateful_tractogram import Space, StatefulTractogram
 from dipy.io.streamline import load_trk, save_trk
 from dipy.io.utils import create_tractogram_header
 from time import sleep
 from dipy.io.vtk import transform_streamlines
 from os.path import expanduser, join
+
 home = expanduser('~')
 
 subject = '1234'
@@ -140,5 +141,6 @@ else:
     
 sft_r = StatefulTractogram(extracted_bundle_r, img, Space.RASMM)
 sft_l = StatefulTractogram(extracted_bundle_l, img, Space.RASMM)
+
 save_trk(sft_r, str(boi) + "_R.trk", bbox_valid_check = False)
 save_trk(sft_l, str(boi) + "_L.trk", bbox_valid_check = False)

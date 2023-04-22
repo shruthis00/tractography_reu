@@ -4,7 +4,6 @@ Created on Wed Jun 30 17:55:24 2021
 
 @author: shrut
 """
-import dipy
 from dipy.io.image import load_nifti, save_nifti
 import numpy as np
 from os.path import join, expanduser

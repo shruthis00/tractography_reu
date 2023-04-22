@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jun 30 14:20:13 2021
-
 @author: shrut
 """
-import dipy
-from dipy.io.image import load_nifti, save_nifti
+import time
 import numpy as np
+import matplotlib.pyplot as plt
+from dipy.io.image import load_nifti, save_nifti
 from dipy.segment.tissue import TissueClassifierHMRF
-
 from os.path import join, expanduser
 
 home = expanduser('~')
-dname = join(home, '.dipy', 'sample_files', 'S00393')
+subject = 'S00393'
+dname = join(home, '.dipy', 'sample_files', subject)
 
 fdwi = join(dname, 'Full_DWI_subj.nii')
 fbval = join(dname, 'bvals.txt')
@@ -22,8 +22,6 @@ data, affine, img= load_nifti(fdwi, return_img=True)
 tissue_data = np.asanyarray(img.dataobj)
 
 print(tissue_data.shape)
-
-import matplotlib.pyplot as plt
 
 fig = plt.figure()
 a = fig.add_subplot(1, 2, 1)
@@ -45,9 +43,7 @@ nclass = 3
 beta = 0.1
 
 #Set number of iterations
-import time
 t0 = time.time()
-
 hmrf = TissueClassifierHMRF()
 initial_segmentation, final_segmentation, PVE = hmrf.classify(tissue_data, nclass, beta)
 

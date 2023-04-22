@@ -18,7 +18,7 @@ from dipy.tracking.streamline import set_number_of_points
 from dipy.tracking.streamline import cluster_confidence, Streamlines
 import matplotlib.pyplot as plt
 
-plt.close('all');
+plt.close('all')
 
 from os.path import expanduser, join
 home = expanduser('~')

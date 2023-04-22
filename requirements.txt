@@ -1,0 +1,6 @@
+dipy
+numpy
+matplotlib
+pandas
+fury
+scipy.ndimage

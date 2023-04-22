@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 Created on Tue Jul  6 12:18:50 2021
 
 @author: shrut
 """
+from fury import window, actor, colormap as cmap
+
 import numpy as np
 from scipy.ndimage.morphology import binary_dilation
 
@@ -18,12 +19,10 @@ from dipy.io.gradients import read_bvals_bvecs
 from dipy.io.streamline import save_trk
 from dipy.io.stateful_tractogram import Space, StatefulTractogram
 from dipy.segment.mask import median_otsu
-from fury import window, actor, colormap as cmap
 
 from os.path import expanduser, join
-home = expanduser('~')
 
-subjects = ['subj]
+home = expanduser('~')
 
 subject = 'subj'
 dname = join(home, '.dipy', 'sample_files', subject)
