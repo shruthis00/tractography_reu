@@ -16,7 +16,7 @@ from dipy.tracking.streamline import cluster_confidence, Streamlines
 
 from os.path import expanduser, join
 home = expanduser('~')
-subjects = ['1', '2', '3', '4'] # Insert subjects here
+subjects = ["S1"] # Insert subjects here
 
 def cci_filter(streamlines, cci_thresh):
 

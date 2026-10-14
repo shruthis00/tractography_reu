@@ -23,7 +23,7 @@ from os.path import expanduser, join
 
 home = expanduser('~')
 
-subject = 'subj'
+subject = "S1"
 dname = join(home, '.dipy', 'sample_files', subject)
 
 #you NEED a white matter mask, constructed by dti function in dipy. I have a function to do this already, and it is in the github under 

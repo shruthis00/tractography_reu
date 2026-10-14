@@ -18,11 +18,11 @@ from os.path import expanduser, join
 
 home = expanduser('~')
 
-subject = '1234'
+subject = ["S1"] # Insert subjects here
 dname = join(home, '.dipy', 'sample_files', subject)
 dname2 = join(home, '.dipy', 'bundle_atlas_hcp842', 'Atlas_80_Bundles')
 
-fref = join(dname, '1234.nii')
+fref = join(dname, 'S1.nii')
 ref, affine, img = load_nifti(fref, return_img = True)
 ftarget_tract = join(dname, 'whole_brain.trk')
 flabels = join(dname, 'label_resample.nii')

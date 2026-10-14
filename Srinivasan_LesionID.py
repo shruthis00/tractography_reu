@@ -22,11 +22,9 @@ plt.close('all')
 
 from os.path import expanduser, join
 home = expanduser('~')
-subjects = ['S00393', 'S00490', 'S00613', 'S00680', 'S00699', 'S00795', 'S01952']
 
-subject = 'S00393'
-
-print('Subject is ' + subject)
+subjects = ["S1"] # Insert subjects here
+subject = '1'
 
 dname = join(home, '.dipy', 'sample_files', subject)
 dname2 = join(home, '.spyder-py3')
