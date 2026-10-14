@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul  1 02:31:50 2021
-
 @author: shrut
 """
 import numpy as np
@@ -20,7 +19,7 @@ from dipy.tracking.streamline import set_number_of_points
 from os.path import expanduser, join
 home = expanduser('~')
 
-subject = 'S00393'
+subject = '1'
 dname = join(home, '.spyder-py3')
 
 boi = 'C'
@@ -41,6 +40,7 @@ l_header = create_tractogram_header(f_boi_l,
 r_extract = set_number_of_points(r_extract, 60)
 l_extract = set_number_of_points(l_extract, 60)
 print('Extracted bundles loaded!')
+
 #Length Calculation
 #Calculate number of voxels in each tract
 

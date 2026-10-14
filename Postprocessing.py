@@ -218,7 +218,6 @@ for i, subject in enumerate(subjects):
     #sft = StatefulTractogram(hipp_to_amyg_l, img, Space.RASMM)
     #save_trk(sft, str(subject) + 'cci_thresholding_before.trk', bbox_valid_check= False)
 
-    
     hipp_amyg_fal = np.array(FA_streamlines(FA_map, hipp_to_amyg_l))
     hipp_amyg_far = np.array(FA_streamlines(FA_map, hipp_to_amyg_r))
 

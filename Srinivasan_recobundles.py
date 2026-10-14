@@ -13,7 +13,6 @@ from dipy.align.streamlinear import whole_brain_slr
 from dipy.io.stateful_tractogram import Space, StatefulTractogram
 from dipy.io.streamline import load_trk, save_trk
 from dipy.io.utils import create_tractogram_header
-from time import sleep
 from dipy.io.vtk import transform_streamlines
 from os.path import expanduser, join
 

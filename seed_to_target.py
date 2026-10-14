@@ -7,7 +7,6 @@ from fury import window, actor, colormap as cmap
 
 import numpy as np
 from scipy.ndimage.morphology import binary_dilation
-
 from dipy.direction import peaks
 from dipy.reconst.shm import CsaOdfModel
 from dipy.tracking import utils

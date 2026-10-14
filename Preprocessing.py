@@ -47,7 +47,7 @@ def resample_nifti(data, affine, img, vox_size, new_vox_size, new_fname):
     data2, affine2 = reslice(data, affine, vox_size, new_vox_size)
     slice_index = data.shape[2] // 2
     
-    plt.figure('Normal versus ResampledAxial')
+    plt.figure('Normal versus Resampled - Axial')
     plt.subplot(1, 2, 1).set_axis_off()
     plt.imshow(histeq(data[:, :, slice_index].astype('float')).T,
                cmap='gray', origin='lower')

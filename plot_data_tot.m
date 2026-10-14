@@ -1,4 +1,4 @@
-data_tot = readtable("C:\Users\shrut\.dipy\sample_files\df_tot.csv");
+data_tot = readtable("compiled_data_fname"); % CHANGE ME to filename for compiled data 
 
 n_str = data_tot.NumberOfStreamlines;
 mean_fa = data_tot.MeanFA;
@@ -19,7 +19,6 @@ end
 
 figure(1)
 C = [101,195,247]
-%54,3,185;176,20,250;244,202,70;29,8,53;157,109,153;122,72,32];
 C = C ./256;
 scatter3(n_str, mean_fa, len_str, 'filled', 'MarkerFaceColor', C);
 

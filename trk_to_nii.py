@@ -1,11 +1,10 @@
 interactive = True
 
 import numpy as np
+import matplotlib.pyplot as plt
 from dipy.io.streamline import load_tractogram
-# importing save nifti
 from dipy.io.image import load_nifti, save_nifti
 from dipy.tracking.streamline import set_number_of_points
-import matplotlib.pyplot as plt
 from dipy.core.histeq import histeq
 
 # This file is meant to convert trk file into nii file, or mask an nii
@@ -15,6 +14,8 @@ from os.path import expanduser, join
 home = expanduser('~')
 dname = join(home, '.dipy', 'sample_files')
 dname2 = join(home, '.spyder-py3')
+
+subject = 1
 
 # load trk file and subject nifti file which should correspond
 f_trk = join(dname2, '(subject data)' + '.trk')
@@ -44,7 +45,7 @@ for streamline in orig_strm:
 
 # viz the mask
 sagittal = ref.shape[0] // 2
-coronal = ref.shape[1] // 2;
+coronal = ref.shape[1] // 2
 axial = ref.shape[2] // 2
 plt.figure('Brain segmentation')
 plt.subplot().set_axis_off()
@@ -52,6 +53,3 @@ plt.imshow(histeq(b_mask[:, coronal, :].astype('float')).T,
            cmap='gray', origin='lower')
 
 save_nifti('trk_bmask_' + subject, b_mask, affine)
-# Ok, now asymmetry indices?
-# We've already hashed out a method for determining asymmetry
-# find method for this in the Srinivasan_LesionID file

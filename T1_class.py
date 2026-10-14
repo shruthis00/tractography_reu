@@ -11,7 +11,7 @@ from dipy.segment.tissue import TissueClassifierHMRF
 from os.path import join, expanduser
 
 home = expanduser('~')
-subject = 'S00393'
+subject = '1'
 dname = join(home, '.dipy', 'sample_files', subject)
 
 fdwi = join(dname, 'Full_DWI_subj.nii')
